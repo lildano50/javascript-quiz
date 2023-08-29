@@ -3,6 +3,7 @@ var startGame = document.querySelector("#begin")
 startGame.addEventListener("click", takeQuiz);
 
 // Create questions array
+
 let questions = [
     {
         question: "Question 1",
@@ -10,7 +11,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "answer1"
+        correct: "answer4"
     },
     {
         question: "Question 2",
@@ -100,10 +101,10 @@ a2.setAttribute("id", "userAnswerB");
 a3.setAttribute("id", "userAnswerC");
 a4.setAttribute("id", "userAnswerD");
 
-a1.addEventListener("click",logAnswer);
-a2.addEventListener("click",logAnswer);
-a3.addEventListener("click",logAnswer);
-a4.addEventListener("click",logAnswer);
+// a1.addEventListener("click",logAnswerA);
+// a2.addEventListener("click",logAnswerB);
+// a3.addEventListener("click",logAnswerC);
+// a4.addEventListener("click",logAnswerD);
 
 a1.setAttribute("style", "margin: 10px");
 a2.setAttribute("style", "margin: 10px");
@@ -129,43 +130,96 @@ function displayQuestion(qIndex) {
     a4.textContent = question.choiceD;
 }
 
-
-//just call take quiz function 10 times passing number into takeQuiz(). It should then pull each question. Set it up 
-//with a continue button after each question. Everything will need to go into a while loop with timer.
 function takeQuiz(){
-    for (var questionIndex = 0; questionIndex < questions.length; questionIndex++) {
-        displayQuestion(questionIndex);
-        let userAnswer = logAnswer;
-        var userAnswerA = userAnswer.answerA;
-        var userAnswerB = userAnswer.answerB;
-        var userAnswerC = userAnswer.answerC;
-        var userAnswerD = userAnswer.answerD;
+    var questionIndex = 0;
+    displayQuestion(questionIndex);
 
+    a1.addEventListener("click", e => {
+        var userAnswerA = document.querySelector("#userAnswerA").textContent;
         if (userAnswerA == questions[questionIndex].correct) {
             console.log("Correct Answer")
-        } else if  (userAnswerB == questions[questionIndex].correct){
-            console.log("Correct Answer")
-        } else if  (userAnswerC == questions[questionIndex].correct){
-            console.log("Correct Answer")
-        } else if  (userAnswerD == questions[questionIndex].correct){
-            console.log("Correct Answer")
+        } else {
+            console.log("Incorrect Answer")
         }
-    }
+    });
+    a2.addEventListener("click", e => {
+        var userAnswerB = document.querySelector("#userAnswerB").textContent;
+        if (userAnswerB == questions[questionIndex].correct) {
+            console.log("Correct Answer")
+        } else {
+            console.log("Incorrect Answer")
+        }
+    });
+    a3.addEventListener("click", e => {
+        var userAnswerC = document.querySelector("#userAnswerC").textContent;
+        if (userAnswerC == questions[questionIndex].correct) {
+            console.log("Correct Answer")
+        } else {
+            console.log("Incorrect Answer")
+        }
+    });
+    a4.addEventListener("click", e => {
+        var userAnswerD = document.querySelector("#userAnswerD").textContent;
+        if (userAnswerD == questions[questionIndex].correct) {
+            console.log("Correct Answer")
+        } else {
+            console.log("Incorrect Answer")
+        }
+    });
 }
 
 
-function logAnswer() {
-    var userAnswerA = document.querySelector("#userAnswerA").textContent;
+
+
+//just call take quiz function 10 times passing number into takeQuiz(). It should then pull each question. Set it up 
+//with a continue button after each question. Everything will need to go into a while loop with timer.
+// function takeQuiz(){
+//     for (var questionIndex = 0; questionIndex < questions.length; questionIndex++) {
+//         displayQuestion(questionIndex);
+//         let userAnswer = logAnswer;
+//         var userAnswerA = userAnswer.answerA;
+//         var userAnswerB = userAnswer.answerB;
+//         var userAnswerC = userAnswer.answerC;
+//         var userAnswerD = userAnswer.answerD;
+
+//         if (userAnswerA == questions[questionIndex].correct) {
+//             console.log("Correct Answer")
+//         } else if  (userAnswerB == questions[questionIndex].correct){
+//             console.log("Correct Answer")
+//         } else if  (userAnswerC == questions[questionIndex].correct){
+//             console.log("Correct Answer")
+//         } else if  (userAnswerD == questions[questionIndex].correct){
+//             console.log("Correct Answer")
+//         }
+//     }
+// }
+
+
+// function logAnswerA() {
+//     var userAnswerA = document.querySelector("#userAnswerA").textContent;
+//     // return userAnswerA;
+//     console.log(userAnswerA);
+// };
+
+function logAnswerB() {
     var userAnswerB = document.querySelector("#userAnswerB").textContent;
-    var userAnswerC = document.querySelector("#userAnswerC").textContent;
-    var userAnswerD = document.querySelector("#userAnswerD").textContent;
-    return {
-        answerA: userAnswerA,
-        answerB: userAnswerB,
-        answerC: userAnswerC,
-        answerD: userAnswerD
-    }
+    // return userAnswerB
+    console.log(userAnswerB);
 };
+
+function logAnswerC() {
+    var userAnswerC = document.querySelector("#userAnswerC").textContent;
+    // return userAnswerC;
+    console.log(userAnswerC);
+};
+
+function logAnswerD() {
+    var userAnswerD = document.querySelector("#userAnswerD").textContent;
+    // return userAnswerD;
+    console.log(userAnswerD);
+};
+
+
 
 
 
