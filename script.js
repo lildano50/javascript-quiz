@@ -1,6 +1,8 @@
 var startGame = document.querySelector("#begin")
-
-startGame.addEventListener("click", takeQuiz);
+var timerElement = document.querySelector(".timer-count");
+var playerPoints = 0;
+var questionIndex = 0;
+startGame.addEventListener("click", beginGame);
 
 // Create questions array
 
@@ -19,7 +21,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 3",
@@ -27,7 +29,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 4",
@@ -35,7 +37,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 5",
@@ -43,7 +45,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 6",
@@ -51,7 +53,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 7",
@@ -59,7 +61,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 8",
@@ -67,7 +69,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 9",
@@ -75,7 +77,7 @@ let questions = [
         choiceB: "answer2",
         choiceC: "answer3",
         choiceD: "answer4",
-        correct: "A"
+        correct: "answer1"
     },
     {
         question: "Question 10",
@@ -128,46 +130,145 @@ function displayQuestion(qIndex) {
     a2.textContent = question.choiceB;
     a3.textContent = question.choiceC;
     a4.textContent = question.choiceD;
-}
-
-function takeQuiz(){
-    var questionIndex = 0;
-    displayQuestion(questionIndex);
 
     a1.addEventListener("click", e => {
         var userAnswerA = document.querySelector("#userAnswerA").textContent;
         if (userAnswerA == questions[questionIndex].correct) {
             console.log("Correct Answer")
+            playerPoints += 10;
+            questionIndex = questionIndex + 1;
+            takeQuiz();
         } else {
             console.log("Incorrect Answer")
+            timerCount -= 10;
         }
     });
     a2.addEventListener("click", e => {
         var userAnswerB = document.querySelector("#userAnswerB").textContent;
         if (userAnswerB == questions[questionIndex].correct) {
             console.log("Correct Answer")
+            playerPoints += 10;
+            questionIndex = questionIndex + 1;
+            takeQuiz();
         } else {
             console.log("Incorrect Answer")
+            timerCount -= 10;
         }
     });
     a3.addEventListener("click", e => {
         var userAnswerC = document.querySelector("#userAnswerC").textContent;
         if (userAnswerC == questions[questionIndex].correct) {
             console.log("Correct Answer")
+            playerPoints += 10;
+            questionIndex = questionIndex + 1;
+            takeQuiz();
         } else {
             console.log("Incorrect Answer")
+            timerCount -= 10;
         }
     });
     a4.addEventListener("click", e => {
         var userAnswerD = document.querySelector("#userAnswerD").textContent;
         if (userAnswerD == questions[questionIndex].correct) {
             console.log("Correct Answer")
+            playerPoints += 10;
+            questionIndex = questionIndex + 1;
+            takeQuiz();
         } else {
             console.log("Incorrect Answer")
+            timerCount -= 10;
         }
     });
 }
 
+function takeQuiz(){
+    // var questionIndex = 0;
+    displayQuestion(questionIndex);
+
+    // a1.addEventListener("click", e => {
+    //     var userAnswerA = document.querySelector("#userAnswerA").textContent;
+    //     if (userAnswerA == questions[questionIndex].correct) {
+    //         console.log("Correct Answer")
+    //         playerPoints += 10;
+    //         questionIndex++;
+    //         takeQuiz();
+    //     } else {
+    //         console.log("Incorrect Answer")
+    //         timerCount -= 10;
+    //     }
+    // });
+    // a2.addEventListener("click", e => {
+    //     var userAnswerB = document.querySelector("#userAnswerB").textContent;
+    //     if (userAnswerB == questions[questionIndex].correct) {
+    //         console.log("Correct Answer")
+    //         playerPoints += 10;
+    //         questionIndex++;
+    //         takeQuiz();
+    //     } else {
+    //         console.log("Incorrect Answer")
+    //         timerCount -= 10;
+    //     }
+    // });
+    // a3.addEventListener("click", e => {
+    //     var userAnswerC = document.querySelector("#userAnswerC").textContent;
+    //     if (userAnswerC == questions[questionIndex].correct) {
+    //         console.log("Correct Answer")
+    //         playerPoints += 10;
+    //         questionIndex++;
+    //         takeQuiz();
+    //     } else {
+    //         console.log("Incorrect Answer")
+    //         timerCount -= 10;
+    //     }
+    // });
+    // a4.addEventListener("click", e => {
+    //     var userAnswerD = document.querySelector("#userAnswerD").textContent;
+    //     if (userAnswerD == questions[questionIndex].correct) {
+    //         console.log("Correct Answer")
+    //         playerPoints += 10;
+    //         questionIndex++;
+    //         takeQuiz();
+    //     } else {
+    //         console.log("Incorrect Answer")
+    //         timerCount -= 10;
+    //     }
+    // });
+};
+
+function beginGame() {
+    timerCount = 100;
+    takeQuiz()
+    startTimer()
+};
+
+function startTimer() {
+    // Sets timer
+    timer = setInterval(function() {
+      timerCount--;
+      timerElement.textContent = timerCount;
+      if (timerCount >= 0) {
+        // Tests if win condition is met
+        if (isWin && timerCount > 0) {
+          // Clears interval and stops timer
+          clearInterval(timer);
+          winGame();
+        }
+      }
+      // Tests if time has run out
+      if (timerCount === 0) {
+        // Clears interval
+        clearInterval(timer);
+        gameOver();
+      }
+    }, 1000);
+};
+
+function gameOver(){
+
+}
+
+function pointsCounter(){
+}
 
 
 
@@ -201,26 +302,26 @@ function takeQuiz(){
 //     console.log(userAnswerA);
 // };
 
-function logAnswerB() {
-    var userAnswerB = document.querySelector("#userAnswerB").textContent;
-    // return userAnswerB
-    console.log(userAnswerB);
-};
+// function logAnswerB() {
+//     var userAnswerB = document.querySelector("#userAnswerB").textContent;
+//     // return userAnswerB
+//     console.log(userAnswerB);
+// };
 
-function logAnswerC() {
-    var userAnswerC = document.querySelector("#userAnswerC").textContent;
-    // return userAnswerC;
-    console.log(userAnswerC);
-};
+// function logAnswerC() {
+//     var userAnswerC = document.querySelector("#userAnswerC").textContent;
+//     // return userAnswerC;
+//     console.log(userAnswerC);
+// };
 
-function logAnswerD() {
-    var userAnswerD = document.querySelector("#userAnswerD").textContent;
-    // return userAnswerD;
-    console.log(userAnswerD);
-};
+// function logAnswerD() {
+//     var userAnswerD = document.querySelector("#userAnswerD").textContent;
+//     // return userAnswerD;
+//     console.log(userAnswerD);
+// };
 
 
-
+ 
 
 
 
