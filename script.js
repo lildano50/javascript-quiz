@@ -156,6 +156,7 @@ function displayAnswers(answer) {
     a4.textContent = questions[answer].choiceD;
 }
 
+
 function chooseAnswer(aIndex) {
     a1.addEventListener("click", function(event){
         userAnswerA = questions[aIndex].choiceA;
@@ -164,22 +165,31 @@ function chooseAnswer(aIndex) {
             console.log(userAnswerA);
             playerPoints += 10;
             a1.setAttribute("style", "background: green; color: white;")
+            event.stopImmediatePropagation();
+            
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
             a1.setAttribute("style", "background: red; color: white;")
-        }
+            event.stopImmediatePropagation();
+            
+          }
     });
+
     a2.addEventListener("click", function(event){
         userAnswerB = questions[aIndex].choiceB;
         if (userAnswerB === questions[aIndex].correct) {
             console.log("Correct Answer")
             playerPoints += 10;
             a2.setAttribute("style", "background: green; color: white;")
+            event.stopImmediatePropagation();
+            
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
             a2.setAttribute("style", "background: red; color: white;")
+            event.stopImmediatePropagation();
+            
         }
     });
     a3.addEventListener("click", function(event){
@@ -188,10 +198,14 @@ function chooseAnswer(aIndex) {
             console.log("Correct Answer")
             playerPoints += 10;
             a3.setAttribute("style", "background: green; color: white;")
+            event.stopImmediatePropagation();
+            
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
             a3.setAttribute("style", "background: red; color: white;")
+            event.stopImmediatePropagation();
+            
         }
     });
     a4.addEventListener("click", function(event){
@@ -200,10 +214,14 @@ function chooseAnswer(aIndex) {
             console.log("Correct Answer")
             playerPoints += 10;
             a4.setAttribute("style", "background: green; color: white;")
+            event.stopImmediatePropagation();
+            
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
             a4.setAttribute("style", "background: red; color: white;")
+            event.stopImmediatePropagation();
+            
         }
     });
 }
@@ -220,7 +238,7 @@ function beginGame() {
     question = 0;
     timerCount = 100;
     takeQuiz(question)
-    startTimer();
+    startTimer(timerCount);
 };
 
 function startTimer() {
@@ -228,20 +246,20 @@ function startTimer() {
     timer = setInterval(function() {
       timerCount--;
       timerElement.textContent = timerCount;
-      if (timerCount >= 0) {
-        // Tests if win condition is met
-        if (timerCount > 0) {
-          // Clears interval and stops timer
-          clearInterval(timer);
-        //   winGame();
-        }
-      }
-      // Tests if time has run out
-      if (timerCount === 0) {
-        // Clears interval
-        clearInterval(timer);
-        gameOver();
-      }
+    //   if (timerCount >= 0) {
+    //     // Tests if win condition is met
+    //     if (timerCount > 0) {
+    //       // Clears interval and stops timer
+    //       clearInterval(timer);
+    //       winGame();
+    //     }
+    //   }
+    //   // Tests if time has run out
+    //   if (timerCount === 0) {
+    //     // Clears interval
+    //     clearInterval(timer);
+    //     gameOver();
+    //   }
     }, 1000);
 };
 
