@@ -1,27 +1,52 @@
-var startGame = document.querySelector("#begin")
 var timerElement = document.querySelector(".timer-count");
 var playerPoints = 0;
-var questionIndex = 0;
-startGame.addEventListener("click", beginGame);
+// var qIndex = 0;
+var next = document.querySelector(".next");
+var prev = document.querySelector(".prev");
+var index = 0;
+
+var startGame = document.querySelector("#begin");
+var begin = document.createElement("button");
+startGame.appendChild(begin);
+begin.textContent = "Start Game";
+begin.addEventListener("click", beginGame);
+
+var body = document.body;
+var qAndABlock = document.createElement("div");
+var stateQuestion = document.createElement("h3");
+var answerBlock = document.createElement("ul");
+var a1 = document.createElement("button");
+var a2 = document.createElement("button");
+var a3 = document.createElement("button");
+var a4 = document.createElement("button");
+
+a1.setAttribute("id", "userAnswerA");
+a2.setAttribute("id", "userAnswerB");
+a3.setAttribute("id", "userAnswerC");
+a4.setAttribute("id", "userAnswerD");
+
+a1.setAttribute("style", "margin: 10px");
+a2.setAttribute("style", "margin: 10px");
+a3.setAttribute("style", "margin: 10px");
+a4.setAttribute("style", "margin: 10px");
 
 // Create questions array
-
 let questions = [
     {
         question: "Question 1",
-        choiceA: "answer1",
-        choiceB: "answer2",
-        choiceC: "answer3",
-        choiceD: "answer4",
-        correct: "answer4"
+        choiceA: "1answer1",
+        choiceB: "1answer2",
+        choiceC: "1answer3",
+        choiceD: "1answer4",
+        correct: "1answer1"
     },
     {
         question: "Question 2",
-        choiceA: "answer1",
-        choiceB: "answer2",
-        choiceC: "answer3",
-        choiceD: "answer4",
-        correct: "answer1"
+        choiceA: "2answer1",
+        choiceB: "2answer2",
+        choiceC: "2answer3",
+        choiceD: "2answer4",
+        correct: "2answer1"
     },
     {
         question: "Question 3",
@@ -89,29 +114,26 @@ let questions = [
     }
 ]
 
-var body = document.body;
-var qAndABlock = document.createElement("div");
-var stateQuestion = document.createElement("h3");
-var answerBlock = document.createElement("ul");
-var a1 = document.createElement("button");
-var a2 = document.createElement("button");
-var a3 = document.createElement("button");
-var a4 = document.createElement("button");
-
-a1.setAttribute("id", "userAnswerA");
-a2.setAttribute("id", "userAnswerB");
-a3.setAttribute("id", "userAnswerC");
-a4.setAttribute("id", "userAnswerD");
-
-// a1.addEventListener("click",logAnswerA);
-// a2.addEventListener("click",logAnswerB);
-// a3.addEventListener("click",logAnswerC);
-// a4.addEventListener("click",logAnswerD);
-
-a1.setAttribute("style", "margin: 10px");
-a2.setAttribute("style", "margin: 10px");
-a3.setAttribute("style", "margin: 10px");
-a4.setAttribute("style", "margin: 10px");
+function nextQuestion(){
+    index++;
+    startGame.innerHTML = "";
+    var nextQuestion = document.querySelector("#nextQuestion");
+    var nextQuestButton = document.createElement("button");
+    nextQuestion.appendChild(nextQuestButton);
+    nextQuestButton.textContent = "Next Question";
+    nextQuestButton.addEventListener("click",function(){
+        nextQuestion.innerHTML = "";
+        takeQuiz(index);
+        a1.removeAttribute("style", "background")
+        a2.removeAttribute("style", "background")
+        a3.removeAttribute("style", "background")
+        a4.removeAttribute("style", "background")
+        a1.setAttribute("style", "margin: 10px");
+        a2.setAttribute("style", "margin: 10px");
+        a3.setAttribute("style", "margin: 10px");
+        a4.setAttribute("style", "margin: 10px");
+    });
+}
 
 
 function displayQuestion(qIndex) {
@@ -123,122 +145,82 @@ function displayQuestion(qIndex) {
     answerBlock.appendChild(a3);
     answerBlock.appendChild(a4);
 
-    let question = questions[qIndex];
-    stateQuestion.textContent = question.question;
+    let quest = questions[qIndex];
+    stateQuestion.textContent = quest.question;
+}
 
-    a1.textContent = question.choiceA;
-    a2.textContent = question.choiceB;
-    a3.textContent = question.choiceC;
-    a4.textContent = question.choiceD;
+function displayAnswers(answer) {
+    a1.textContent = questions[answer].choiceA;
+    a2.textContent = questions[answer].choiceB;
+    a3.textContent = questions[answer].choiceC;
+    a4.textContent = questions[answer].choiceD;
+}
 
-    a1.addEventListener("click", e => {
-        var userAnswerA = document.querySelector("#userAnswerA").textContent;
-        if (userAnswerA == questions[questionIndex].correct) {
+function chooseAnswer(aIndex) {
+    a1.addEventListener("click", function(event){
+        userAnswerA = questions[aIndex].choiceA;
+        if (userAnswerA === questions[aIndex].correct) {
             console.log("Correct Answer")
+            console.log(userAnswerA);
             playerPoints += 10;
-            questionIndex = questionIndex + 1;
-            takeQuiz();
+            a1.setAttribute("style", "background: green; color: white;")
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
+            a1.setAttribute("style", "background: red; color: white;")
         }
     });
-    a2.addEventListener("click", e => {
-        var userAnswerB = document.querySelector("#userAnswerB").textContent;
-        if (userAnswerB == questions[questionIndex].correct) {
+    a2.addEventListener("click", function(event){
+        userAnswerB = questions[aIndex].choiceB;
+        if (userAnswerB === questions[aIndex].correct) {
             console.log("Correct Answer")
             playerPoints += 10;
-            questionIndex = questionIndex + 1;
-            takeQuiz();
+            a2.setAttribute("style", "background: green; color: white;")
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
+            a2.setAttribute("style", "background: red; color: white;")
         }
     });
-    a3.addEventListener("click", e => {
-        var userAnswerC = document.querySelector("#userAnswerC").textContent;
-        if (userAnswerC == questions[questionIndex].correct) {
+    a3.addEventListener("click", function(event){
+        userAnswerC = questions[aIndex].choiceC;
+        if (userAnswerC === questions[aIndex].correct) {
             console.log("Correct Answer")
             playerPoints += 10;
-            questionIndex = questionIndex + 1;
-            takeQuiz();
+            a3.setAttribute("style", "background: green; color: white;")
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
+            a3.setAttribute("style", "background: red; color: white;")
         }
     });
-    a4.addEventListener("click", e => {
-        var userAnswerD = document.querySelector("#userAnswerD").textContent;
-        if (userAnswerD == questions[questionIndex].correct) {
+    a4.addEventListener("click", function(event){
+        userAnswerD = questions[aIndex].choiceD;
+        if (userAnswerD === questions[aIndex].correct) {
             console.log("Correct Answer")
             playerPoints += 10;
-            questionIndex = questionIndex + 1;
-            takeQuiz();
+            a4.setAttribute("style", "background: green; color: white;")
         } else {
             console.log("Incorrect Answer")
             timerCount -= 10;
+            a4.setAttribute("style", "background: red; color: white;")
         }
     });
 }
 
-function takeQuiz(){
-    // var questionIndex = 0;
+function takeQuiz(questionIndex){
     displayQuestion(questionIndex);
-
-    // a1.addEventListener("click", e => {
-    //     var userAnswerA = document.querySelector("#userAnswerA").textContent;
-    //     if (userAnswerA == questions[questionIndex].correct) {
-    //         console.log("Correct Answer")
-    //         playerPoints += 10;
-    //         questionIndex++;
-    //         takeQuiz();
-    //     } else {
-    //         console.log("Incorrect Answer")
-    //         timerCount -= 10;
-    //     }
-    // });
-    // a2.addEventListener("click", e => {
-    //     var userAnswerB = document.querySelector("#userAnswerB").textContent;
-    //     if (userAnswerB == questions[questionIndex].correct) {
-    //         console.log("Correct Answer")
-    //         playerPoints += 10;
-    //         questionIndex++;
-    //         takeQuiz();
-    //     } else {
-    //         console.log("Incorrect Answer")
-    //         timerCount -= 10;
-    //     }
-    // });
-    // a3.addEventListener("click", e => {
-    //     var userAnswerC = document.querySelector("#userAnswerC").textContent;
-    //     if (userAnswerC == questions[questionIndex].correct) {
-    //         console.log("Correct Answer")
-    //         playerPoints += 10;
-    //         questionIndex++;
-    //         takeQuiz();
-    //     } else {
-    //         console.log("Incorrect Answer")
-    //         timerCount -= 10;
-    //     }
-    // });
-    // a4.addEventListener("click", e => {
-    //     var userAnswerD = document.querySelector("#userAnswerD").textContent;
-    //     if (userAnswerD == questions[questionIndex].correct) {
-    //         console.log("Correct Answer")
-    //         playerPoints += 10;
-    //         questionIndex++;
-    //         takeQuiz();
-    //     } else {
-    //         console.log("Incorrect Answer")
-    //         timerCount -= 10;
-    //     }
-    // });
-};
+    displayAnswers(questionIndex);
+    chooseAnswer(questionIndex);
+    nextQuestion();
+    pointsCounter(playerPoints);
+}
 
 function beginGame() {
+    question = 0;
     timerCount = 100;
-    takeQuiz()
-    startTimer()
+    takeQuiz(question)
+    startTimer();
 };
 
 function startTimer() {
@@ -248,10 +230,10 @@ function startTimer() {
       timerElement.textContent = timerCount;
       if (timerCount >= 0) {
         // Tests if win condition is met
-        if (isWin && timerCount > 0) {
+        if (timerCount > 0) {
           // Clears interval and stops timer
           clearInterval(timer);
-          winGame();
+        //   winGame();
         }
       }
       // Tests if time has run out
@@ -264,71 +246,11 @@ function startTimer() {
 };
 
 function gameOver(){
+};
 
-}
-
-function pointsCounter(){
-}
-
-
-
-//just call take quiz function 10 times passing number into takeQuiz(). It should then pull each question. Set it up 
-//with a continue button after each question. Everything will need to go into a while loop with timer.
-// function takeQuiz(){
-//     for (var questionIndex = 0; questionIndex < questions.length; questionIndex++) {
-//         displayQuestion(questionIndex);
-//         let userAnswer = logAnswer;
-//         var userAnswerA = userAnswer.answerA;
-//         var userAnswerB = userAnswer.answerB;
-//         var userAnswerC = userAnswer.answerC;
-//         var userAnswerD = userAnswer.answerD;
-
-//         if (userAnswerA == questions[questionIndex].correct) {
-//             console.log("Correct Answer")
-//         } else if  (userAnswerB == questions[questionIndex].correct){
-//             console.log("Correct Answer")
-//         } else if  (userAnswerC == questions[questionIndex].correct){
-//             console.log("Correct Answer")
-//         } else if  (userAnswerD == questions[questionIndex].correct){
-//             console.log("Correct Answer")
-//         }
-//     }
-// }
-
-
-// function logAnswerA() {
-//     var userAnswerA = document.querySelector("#userAnswerA").textContent;
-//     // return userAnswerA;
-//     console.log(userAnswerA);
-// };
-
-// function logAnswerB() {
-//     var userAnswerB = document.querySelector("#userAnswerB").textContent;
-//     // return userAnswerB
-//     console.log(userAnswerB);
-// };
-
-// function logAnswerC() {
-//     var userAnswerC = document.querySelector("#userAnswerC").textContent;
-//     // return userAnswerC;
-//     console.log(userAnswerC);
-// };
-
-// function logAnswerD() {
-//     var userAnswerD = document.querySelector("#userAnswerD").textContent;
-//     // return userAnswerD;
-//     console.log(userAnswerD);
-// };
-
-
- 
-
-
-
-
-
-
-
-
-
-
+function pointsCounter(pPoints){
+    points = document.querySelector("#playerScore");
+    counter = document.createElement("h3");
+    points.appendChild(counter);
+    counter.textContent = pPoints;
+};
