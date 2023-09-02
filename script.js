@@ -237,8 +237,7 @@ function takeQuiz(questionIndex){
 function beginGame() {
     question = 0;
     timerCount = 100;
-    takeQuiz(question)
-    startTimer(timerCount);
+    takeQuiz(question);
 };
 
 function startTimer() {
@@ -270,5 +269,5 @@ function pointsCounter(pPoints){
     points = document.querySelector("#playerScore");
     counter = document.createElement("h3");
     points.appendChild(counter);
-    counter.textContent = pPoints;
+    counter.textContent = playerPoints;
 };
