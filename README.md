@@ -27,6 +27,10 @@ https://lildano50.github.io/javascript-quiz/
 
 ## Screenshot of Working Application
 
+![Screenshot 2023-09-01 221447](https://github.com/lildano50/javascript-quiz/assets/119541939/5a5b40a8-42d3-4024-831f-e2db6c569f4d)
+
+![Screenshot 2023-09-01 221507](https://github.com/lildano50/javascript-quiz/assets/119541939/19b7b7d9-b404-4d44-89c2-9b3769b44e0b)
+
 
 
 
